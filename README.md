@@ -56,45 +56,61 @@ Se siguió ciclo Red → Green → Refactor en múltiples iteraciones. Cada test
    refactor: move registeredIds to field and add documentation (REFACTOR)
 
 - Caso 1: Registrar persona válida
-  Fase Descripción Commit Resultado Esperado
-  🔴 RED Crear prueba shouldRegisterValidPerson con persona viva, id válido y edad adecuada. test: add shouldRegisterValidPerson (RED) Falla inicialmente.
-  🟢 GREEN Implementar registro válido en registerVoter. feat: implement valid registration logic (GREEN) La prueba pasa correctamente.
-  🟡 REFACTOR Optimizar estructura del método y constantes. refactor: improve registerVoter readability (REFACTOR) Código limpio y mantenible.
+| Fase        | Descripción                                                                           | Commit                                                   | Resultado Esperado            |
+| ----------- | ------------------------------------------------------------------------------------- | -------------------------------------------------------- | ----------------------------- |
+| 🔴 RED      | Crear prueba `shouldRegisterValidPerson` con persona viva, id válido y edad adecuada. | `test: add shouldRegisterValidPerson (RED)`              | Falla inicialmente.           |
+| 🟢 GREEN    | Implementar registro válido en `registerVoter`.                                       | `feat: implement valid registration logic (GREEN)`       | La prueba pasa correctamente. |
+| 🟡 REFACTOR | Optimizar estructura del método y constantes.                                         | `refactor: improve registerVoter readability (REFACTOR)` | Código limpio y mantenible.   |
+
 - Caso 2: Rechazar persona fallecida
-  Fase Descripción Commit Resultado Esperado
-  🔴 RED Crear prueba shouldRejectDeadPerson. test: add shouldRejectDeadPerson (RED) La prueba falla (sin lógica).
-  🟢 GREEN Devolver DEAD cuando isAlive es false. feat: return DEAD when person is not alive (GREEN) Prueba exitosa.
-  🟡 REFACTOR Agregar verificación de nulos y constantes. refactor: add null check and constants MIN_AGE/MAX_AGE (REFACTOR) Código limpio.
+  | Fase        | Descripción                                  | Commit                                                              | Resultado Esperado            |
+| ----------- | -------------------------------------------- | ------------------------------------------------------------------- | ----------------------------- |
+| 🔴 RED      | Crear prueba `shouldRejectDeadPerson`.       | `test: add shouldRejectDeadPerson (RED)`                            | La prueba falla (sin lógica). |
+| 🟢 GREEN    | Devolver `DEAD` cuando `isAlive` es `false`. | `feat: return DEAD when person is not alive (GREEN)`                | Prueba exitosa.               |
+| 🟡 REFACTOR | Agregar verificación de nulos y constantes.  | `refactor: add null check and constants MIN_AGE/MAX_AGE (REFACTOR)` | Código limpio.                |
+
 - Caso 3: Edad negativa o fuera del rango
-  Fase Descripción Commit Resultado Esperado
-  🔴 RED Crear prueba shouldRejectInvalidNegativeAge. test: add shouldRejectInvalidNegativeAge (RED) Falla al no estar validado.
-  🟢 GREEN Validar edad < 0 o > 120. feat: validate negative or too high age (GREEN) Pasa correctamente.
-  🟡 REFACTOR Centralizar validación en método isValidAge. refactor: extract isValidAge method (REFACTOR) Código más ordenado.
+  | Fase        | Descripción                                    | Commit                                            | Resultado Esperado          |
+| ----------- | ---------------------------------------------- | ------------------------------------------------- | --------------------------- |
+| 🔴 RED      | Crear prueba `shouldRejectInvalidNegativeAge`. | `test: add shouldRejectInvalidNegativeAge (RED)`  | Falla al no estar validado. |
+| 🟢 GREEN    | Validar edad `< 0` o `> 120`.                  | `feat: validate negative or too high age (GREEN)` | Pasa correctamente.         |
+| 🟡 REFACTOR | Centralizar validación en método `isValidAge`. | `refactor: extract isValidAge method (REFACTOR)`  | Código más ordenado.        |
+
 - Caso 4: Menor de edad (17 años)
-  Fase Descripción Commit Resultado Esperado
-  🔴 RED Crear prueba shouldRejectUnderageAt17. test: add shouldRejectUnderageAt17 (RED) Falla.
-  🟢 GREEN Validar edad < 18. feat: reject person under 18 (GREEN) Pasa correctamente.
-  🟡 REFACTOR Reutilizar constante MIN_AGE = 18. refactor: define MIN_AGE constant (REFACTOR) Mejora legibilidad.
+  | Fase        | Descripción                              | Commit                                         | Resultado Esperado  |
+| ----------- | ---------------------------------------- | ---------------------------------------------- | ------------------- |
+| 🔴 RED      | Crear prueba `shouldRejectUnderageAt17`. | `test: add shouldRejectUnderageAt17 (RED)`     | Falla.              |
+| 🟢 GREEN    | Validar edad `< 18`.                     | `feat: reject person under 18 (GREEN)`         | Pasa correctamente. |
+| 🟡 REFACTOR | Reutilizar constante `MIN_AGE = 18`.     | `refactor: define MIN_AGE constant (REFACTOR)` | Mejora legibilidad. |
+
 - Caso 5: Adulto de 18 años
-  Fase Descripción Commit Resultado Esperado
-  🔴 RED Crear prueba shouldAcceptAdultAt18. test: add shouldAcceptAdultAt18 (RED) Falla.
-  🟢 GREEN Validar que 18 sea permitido. feat: accept person with age 18 (GREEN) Pasa correctamente.
-  🟡 REFACTOR Reutilizar método isValidAge. refactor: reuse isValidAge method (REFACTOR) Código limpio.
+  | Fase        | Descripción                           | Commit                                         | Resultado Esperado  |
+| ----------- | ------------------------------------- | ---------------------------------------------- | ------------------- |
+| 🔴 RED      | Crear prueba `shouldAcceptAdultAt18`. | `test: add shouldAcceptAdultAt18 (RED)`        | Falla.              |
+| 🟢 GREEN    | Validar que `18` sea permitido.       | `feat: accept person with age 18 (GREEN)`      | Pasa correctamente. |
+| 🟡 REFACTOR | Reutilizar método `isValidAge`.       | `refactor: reuse isValidAge method (REFACTOR)` | Código limpio.      |
+
 - Caso 6: Edad mayor a 120 años
-  Fase Descripción Commit Resultado Esperado
-  🔴 RED Crear prueba shouldRejectInvalidAgeOver120. test: add shouldRejectInvalidAgeOver120 (RED) Falla.
-  🟢 GREEN Validar age > MAX_AGE. feat: reject person older than 120 (GREEN) Pasa correctamente.
-  🟡 REFACTOR Centralizar constantes. refactor: move MAX_AGE constant (REFACTOR) Código más limpio.
+  | Fase        | Descripción                                   | Commit                                          | Resultado Esperado  |
+| ----------- | --------------------------------------------- | ----------------------------------------------- | ------------------- |
+| 🔴 RED      | Crear prueba `shouldRejectInvalidAgeOver120`. | `test: add shouldRejectInvalidAgeOver120 (RED)` | Falla.              |
+| 🟢 GREEN    | Validar `age > MAX_AGE`.                      | `feat: reject person older than 120 (GREEN)`    | Pasa correctamente. |
+| 🟡 REFACTOR | Centralizar constantes.                       | `refactor: move MAX_AGE constant (REFACTOR)`    | Código más limpio.  |
+
 - Caso 7: Persona duplicada
-  Fase Descripción Commit Resultado Esperado
-  🔴 RED Crear prueba shouldRejectDuplicatedPerson. test: add shouldRejectDuplicatedPerson (RED) Falla (sin control de duplicados).
-  🟢 GREEN Validar si el id ya existe en registeredIds. feat: reject duplicated person (GREEN) Pasa correctamente.
-  🟡 REFACTOR Reutilizar estructura de Set<Integer>. refactor: clean up registeredIds logic (REFACTOR) Código ordenado.
+  | Fase        | Descripción                                      | Commit                                              | Resultado Esperado                 |
+| ----------- | ------------------------------------------------ | --------------------------------------------------- | ---------------------------------- |
+| 🔴 RED      | Crear prueba `shouldRejectDuplicatedPerson`.     | `test: add shouldRejectDuplicatedPerson (RED)`      | Falla (sin control de duplicados). |
+| 🟢 GREEN    | Validar si el `id` ya existe en `registeredIds`. | `feat: reject duplicated person (GREEN)`            | Pasa correctamente.                |
+| 🟡 REFACTOR | Reutilizar estructura de `Set<Integer>`.         | `refactor: clean up registeredIds logic (REFACTOR)` | Código ordenado.                   |
+
 - Caso 8: ID inválido (cero o negativo)
-  Fase Descripción Commit Resultado Esperado
-  🔴 RED Crear prueba shouldRejectInvalidId. test: add shouldRejectInvalidId (RED) Falla (sin validación de ID).
-  🟢 GREEN Validar id <= 0. feat: reject invalid id (GREEN) Pasa correctamente.
-  🟡 REFACTOR Extraer método isValidId(). refactor: extract id validation method (REFACTOR) Código más legible.
+  | Fase        | Descripción                           | Commit                                              | Resultado Esperado            |
+| ----------- | ------------------------------------- | --------------------------------------------------- | ----------------------------- |
+| 🔴 RED      | Crear prueba `shouldRejectInvalidId`. | `test: add shouldRejectInvalidId (RED)`             | Falla (sin validación de ID). |
+| 🟢 GREEN    | Validar `id <= 0`.                    | `feat: reject invalid id (GREEN)`                   | Pasa correctamente.           |
+| 🟡 REFACTOR | Extraer método `isValidId()`.         | `refactor: extract id validation method (REFACTOR)` | Código más legible.           |
+
 
 ## Matriz de pruebas (Clases de Equivalencia y Valores Límite)
 
