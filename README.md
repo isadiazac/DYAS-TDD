@@ -8,6 +8,7 @@ Integrantes:
 
 ```bash
 mvn clean test
+mvn clean test verify
 mvn jacoco:report
 ```
 
