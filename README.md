@@ -134,14 +134,54 @@ Se siguió ciclo Red → Green → Refactor en múltiples iteraciones. Cada test
 | `shouldRejectDuplicatedPerson`   | edad = 25, alive = true, id = 7 (dos veces) | `DUPLICATED`           |
 | `shouldRejectInvalidId`          | edad = 30, alive = true, id = 0             | `INVALID`              |
 
-## Cobertura
+## Reflexión final del taller
+### ¿Qué escenarios no se cubrieron?
 
-Ejecutar mvn jacoco:report y anexar target/site/jacoco/index.html.
+El sistema no valida el campo name, por lo que nombres vacíos o nulos no generan rechazo.
+Tampoco se consideraron casos donde el género (gender) afecte las reglas de registro, ni se probó el comportamiento frente a datos concurrentes o persistencia externa.
+La verificación de duplicados se maneja solo en memoria, sin contemplar reinicios o almacenamiento permanente.
+Finalmente, no se cubrieron escenarios especiales como recién nacidos (edad == 0), mayores de edad con documentos no válidos, o rangos de edad configurables según políticas regionales.
 
-## Reflexión
+### ¿Qué defectos reales detectaron los tests?
 
-- Escenarios no cubiertos: p.ej. formato de ID no numérico (si aplica), test de null person.
+- Durante las pruebas se identificaron varios defectos importantes:
 
-- Defectos detectados: ejemplo en defectos.md.
+- El sistema aceptaba personas con edad negativa o superior a 120 años.
 
-- Mejoras: separar validadores, inyectar repositorio de IDs (para test y producción), usar constantes y límites.
+- Permitía registrar personas muertas.
+
+- No controlaba los identificadores (id) duplicados o inválidos (≤ 0).
+
+- Todos estos errores fueron corregidos progresivamente siguiendo el ciclo RED–GREEN–REFACTOR, logrando que cada validación fuera implementada y verificada de forma incremental.
+- Tras las correcciones, todas las pruebas pasan exitosamente y se alcanzó una cobertura total del 91 %, con 100 % de cobertura en la clase Registry.
+
+### ¿Cómo mejorarías la clase Registry para facilitar su prueba?
+
+Podría mejorarse aplicando inyección de dependencias y separando la lógica de validación en clases dedicadas (AgeValidator, IdValidator, StatusValidator).
+También sería recomendable implementar una interfaz PersonRepository para manejar la unicidad de registros sin depender del estado interno.
+Los valores mínimos y máximos de edad (MIN_AGE, MAX_AGE) podrían extraerse a una clase de configuración (VoterPolicy) para permitir su modificación o extensión.
+Finalmente, el uso de patrones como Specification o Chain of Responsibility simplificaría las pruebas unitarias al aislar reglas específicas.
+
+## Conclusión general
+
+El enfoque TDD (Test Driven Development) permitió construir el sistema paso a paso, asegurando que cada funcionalidad estuviera respaldada por una prueba antes de su implementación.
+Esto redujo errores, mejoró la calidad del código y garantizó una alta trazabilidad entre requisitos y comportamiento.
+Las fases RED, GREEN y REFACTOR evidencian un proceso disciplinado y progresivo que fortalece la mantenibilidad.
+
+En conjunto, el proyecto cumple con los objetivos propuestos: dominio limpio, validaciones bien estructuradas, documentación clara y un proceso de desarrollo orientado a la calidad y la evidencia técnica.
+
+## Métricas de pruebas y cobertura
+
+![Cobertura Jacoco](./images/reporte_jacoco.png)
+
+
+| Métrica                          |            Resultado            |
+| :------------------------------- | :-----------------------------: |
+| Total de pruebas ejecutadas      |                9                |
+| Pruebas exitosas                 |              9 / 9              |
+| Fallos detectados y corregidos   |                4                |
+| Cobertura total del proyecto     |               91 %              |
+| Cobertura clase `Registry`       |              100 %              |
+| Cobertura paquete `domain.model` |               93 %              |
+| Comando de ejecución             |         `mvn clean test`        |
+| Reporte generado en              | `target/site/jacoco/index.html` |
