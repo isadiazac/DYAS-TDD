@@ -172,7 +172,7 @@ En conjunto, el proyecto cumple con los objetivos propuestos: dominio limpio, va
 
 ## Métricas de pruebas y cobertura
 
-![Cobertura Jacoco](./images/reporte_jacoco.png)
+![Cobertura Jacoco](./img/image.png)
 
 
 | Métrica                          |            Resultado            |
